@@ -1,0 +1,22 @@
+{
+  "name": "jinnguyen/puja-db",
+  "description": "Puja-Db is an adapter that allow your application access to a databases",
+  "type": "library",
+  "license": "Apache License 2.0",
+  "keywords": ["Puja", "Db"],
+  "authors": [
+      {
+          "name": "Jin Nguyen",
+          "email": "w2ajax@gmail.com"
+      }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+      "jinnguyen/puja-sqlbuilder": "^1"
+  },
+  "autoload-dev": {
+  "psr-4": {
+      "Puja\\Db\\": "src/"
+  }
+}
+}
