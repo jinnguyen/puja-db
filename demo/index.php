@@ -3,22 +3,6 @@ include '../vendor/autoload.php';
 use Puja\Db\Adapter;
 use Puja\Db\Table;
 
-$config = array(
-    'host' => 'localhost',
-    'username' => 'root',
-    'password' => '123',
-    'dbname' => 'fwcms',
-    'charset' => 'utf8'
-);
-
-$master = array(
-    'host' => 'localhost',
-    'username' => 'root',
-    'password' => '123',
-    'dbname' => 'fwcms',
-    'charset' => 'utf8'
-);
-
 $configures = array(
     'write_adapter_name' => 'master',
     'adapters' => array(
@@ -28,7 +12,6 @@ $configures = array(
             'password' => '123',
             'dbname' => 'fwcms',
             'charset' => 'utf8',
-        	'dns' => 'sqlite'
         ),
         'master' => array(
             'host' => 'localhost',
@@ -36,7 +19,6 @@ $configures = array(
             'password' => '123',
             'dbname' => 'fwcms',
             'charset' => 'utf8',
-        	'dns' => 'sqlite',
         )
     )
 );

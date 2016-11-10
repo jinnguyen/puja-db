@@ -49,9 +49,9 @@ class Table
         return self::getWriteAdapter()->update($this->tableName, $updateFields, $criteria);
     }
 
-    public function insert($updateFields, $ignore = false)
+    public function insert($insertFields, $ignore = false)
     {
-        return self::getWriteAdapter()->insert($this->tableName, $updateFields, $ignore);
+        return self::getWriteAdapter()->insert($this->tableName, $insertFields, $ignore);
     }
 
     public function deleteByCriteria($criteria)

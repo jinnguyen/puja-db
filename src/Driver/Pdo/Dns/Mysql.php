@@ -6,7 +6,7 @@ class Mysql extends DnsAbstract
 {
     protected function buildDns(Driver\ConnectionConfigure $configure)
     {
-        $dns = 'mysql:host=' . $configure->getHost() . ';dbname=' . $configure->getDbname();
+        $dns = 'mysql:host=' . $configure->getHost() . ';dbname=' . $configure->getDbName();
         if ($configure->getPort()) {
             $dns .= ';port=' . $configure->getPort();
         }

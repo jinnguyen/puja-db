@@ -18,17 +18,37 @@ class Connection extends Driver\ConnectionAbstract
 
     public function query($query)
     {
-        $result = $this->connect->query($query);
-        if ($result === false) {
-            throw new Exception(print_r($this->connect->errorInfo(), true));
+        try {
+            $result = $this->connect->query($query);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
+
+        if (!($result instanceof \PDOStatement))
+        {
+            $error = $this->connect->errorInfo();
+            throw new Exception($error[2]);
+        }
+
         return new Result($result, $query);
 
     }
 
     public function prepare($query)
     {
-        return new Statement($this->connect->prepare($query), $query);
+        try {
+            $stmt = $this->connect->prepare($query);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+
+        if (!($stmt instanceof \PDOStatement))
+        {
+            $error = $this->connect->errorInfo();
+            throw new Exception($error[2]);
+        }
+
+        return new Statement($stmt, $query);
     }
 
     public function close()
@@ -38,9 +58,20 @@ class Connection extends Driver\ConnectionAbstract
 
     public function execute($query)
     {
-        $stmt = $this->connect->query($query);
-        $count = $stmt->rowCount();
-        $stmt->closeCursor();
+        try {
+            $result = $this->connect->query($query);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+
+        if (!($result instanceof \PDOStatement))
+        {
+            $error = $this->connect->errorInfo();
+            throw new Exception($error[2]);
+        }
+
+        $count = $result->rowCount();
+        $result->closeCursor();
         return $count;
     }
 

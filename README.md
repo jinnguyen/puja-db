@@ -12,21 +12,42 @@ use Puja\Db\Table;
 
 // Load db configures
 $configures = array(
-    'write_adapter_name' => 'master',
-    'adapters' => array(
-        'default' => array(
-            'host' => 'localhost',
-            'username' => 'root',
-            'password' => '123',
-            'dbname' => 'fwcms',
-            'charset' => 'utf8'
+    '<strong>write_adapter_name</strong>' => '[adapter_name_2]', //Optional. Set adapter_name_2 is WriteAdapter
+
+    /**
+    Namespace to Driver folder, you can change it to your app, if you want create new Driver
+    Default value: \Puja\Db\Driver\
+    Currently we have 2 default Drivers: Mysqli, Pdo ( recommend to use Pdo)
+    */
+    '<strong>DriverClass</strong>' => '\\Puja\\Db\\Driver\\', // Optional
+
+    /**
+        Namespace to Pdo Dns folder, you can change it to your app, if you want create new Dns for Pdo
+        Default value: \Puja\Db\Driver\Pdo\Dns\
+        Currently we have 3 default PDO Dns: mysql, sqlite, pgsql
+    */
+    '<strong>DnsClass</strong>' => '\\Puja\\Db\\Driver\\Pdo\\Dns\\', // Optional
+
+    /**
+        Required
+        A list of configured adapters.
+    */
+    '<strong>adapters</strong>' => array(
+        '[adapter_name_1]' => array(
+            'host' => '[adapter_name_1_host]',
+            'username' => '[adapter_name_1_username]',
+            'password' => '[adapter_name_1_password]',
+            'dbname' => '[adapter_name_1_dbname]',
+            'charset' => 'utf8',
+            'dns' => '[mysql|sqlite|pgsql]',
         ),
-        'master' => array(
-            'host' => 'localhost',
-            'username' => 'root',
-            'password' => '123',
-            'dbname' => 'fwcms',
-            'charset' => 'utf8'
+        '[adapter_name_2]' => array(
+            'host' => '[adapter_name_2_host]',
+            'username' => '[adapter_name_2_username]',
+            'password' => '[adapter_name_2_password]',
+            'dbname' => '[adapter_name_2_dbname]',
+            'charset' => 'utf8',
+            'dns' => '[mysql|sqlite|pgsql]',
         )
     )
 );

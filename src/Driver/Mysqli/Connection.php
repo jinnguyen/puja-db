@@ -12,7 +12,7 @@ class Connection extends Driver\ConnectionAbstract
             $configure->getHost(),
             $configure->getUsername(),
             $configure->getPassword(),
-            $configure->getDbname(),
+            $configure->getDbName(),
             $configure->getSocket()
         );
         if ($configure->getOptions()) {

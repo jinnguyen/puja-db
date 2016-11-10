@@ -47,8 +47,17 @@ class Statement extends StatementAbstract
         if (empty($parameters)) {
             $parameters = null;
         }
+        try {
+            $executed = $this->statement->execute($parameters);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
 
-        $this->statement->execute($parameters);
+        if (false === $executed) {
+            $error = $this->statement->errorInfo();
+            throw new Exception($error[2]);
+        }
+
 
     }
 

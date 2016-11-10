@@ -48,7 +48,7 @@ class ConnectionConfigure
         return $this->cfg['password'];
     }
 
-    public function getDbname()
+    public function getDbName()
     {
         return $this->cfg['dbname'];
     }
@@ -72,9 +72,11 @@ class ConnectionConfigure
     {
         if (empty($this->cfg['dns'])) {
             $this->cfg['dns'] = Configure::DNS_DEFAULT;
+            return $this->cfg['dns'];
         }
 
-        return strtolower($this->cfg['dns']);
+        list($dns, $others) = explode(':', $this->cfg['dns'] . ':');
+        return strtolower($dns);
     }
 
     public function getOptions()
