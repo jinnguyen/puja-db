@@ -6,7 +6,7 @@ use Puja\Db\Configure;
 
 class Connection extends Driver\ConnectionAbstract
 {
-    public function __construct(Driver\ConnectionConfigure $configure)
+    public function __construct(Driver\ConnectionConfigure $configure, $DnsClass = Configure::DNS_CLASS)
     {
         $this->connect = new \mysqli(
             $configure->getHost(),

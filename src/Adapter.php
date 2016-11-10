@@ -35,8 +35,19 @@ class Adapter
         if (!array_key_exists($configures['write_adapter_name'], $configures['adapters'])) {
             throw new Exception(sprintf('*%s* doesnt exist in $configures[adapters]', $configures['write_adapter_name']));
         }
-
-        self::$writeAdapterName = $configures['write_adapter_name'];
+        
+		if (!empty($configures['write_adapter_name'])) {
+			self::$writeAdapterName = $configures['write_adapter_name'];
+		}
+		
+        if (empty($configures['DriverClass'])) {
+        	$configures['DriverClass'] = Configure::DRIVER_CLASS;
+        }
+        
+        if (empty($configures['DnsClass'])) {
+        	$configures['DnsClass'] = Configure::DNS_CLASS;
+        }
+        
         self::$configures = $configures;
     }
 
@@ -59,7 +70,7 @@ class Adapter
         }
 
         self::$instances[$adapterName] = new self();
-        self::$instances[$adapterName]->driver = new Driver(self::$configures['adapters'][$adapterName]);
+        self::$instances[$adapterName]->driver = new Driver(self::$configures['adapters'][$adapterName], self::$configures['DriverClass'], self::$configures['DnsClass']);
         return self::$instances[$adapterName];
     }
 

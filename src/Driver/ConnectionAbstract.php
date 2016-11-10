@@ -1,5 +1,6 @@
 <?php
 namespace Puja\Db\Driver;
+use Puja\Db\Configure;
 abstract class ConnectionAbstract
 {
     protected $connect;
@@ -8,7 +9,7 @@ abstract class ConnectionAbstract
      * Creates a Connection instance representing a connection to a database
      * @param ConnectionConfigure $configure
      */
-    abstract public function __construct(ConnectionConfigure $configure);
+    abstract public function __construct(ConnectionConfigure $configure, $DnsClass = Configure::DNS_CLASS);
 
     /**
      * Executes an SQL statement, returning a result set as a ResultAbstract

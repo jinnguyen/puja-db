@@ -6,9 +6,9 @@ use Puja\Db\Configure;
 
 class Connection extends Driver\ConnectionAbstract
 {
-    public function __construct(Driver\ConnectionConfigure $configure)
+    public function __construct(Driver\ConnectionConfigure $configure, $DnsClass = Configure::DNS_DEFAULT)
     {
-        $dnsCls = '\\Puja\\Db\\Driver\\Pdo\\Dns\\' . ucfirst($configure->getDns());
+        $dnsCls = $DnsClass . ucfirst($configure->getDns());
         if (!class_exists($dnsCls)) {
             throw new Exception('Your dns is not defined');
         }

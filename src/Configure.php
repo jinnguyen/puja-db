@@ -5,6 +5,9 @@ class Configure
 {
     const DRIVER_DEFAULT = 'Pdo';
     const DNS_DEFAULT = 'mysql';
+    
+    const DRIVER_CLASS = '\\Puja\\Db\\Driver\\';
+    const DNS_CLASS = '\\Puja\\Db\\Driver\\Pdo\\Dns\\';
 
     const FETCH_ASSOC = 2;
 
@@ -61,6 +64,8 @@ class Configure
 
     protected $configures = array(
         'write_adapter_name' => null,
+    	'DriverClass' => '',
+    	'DnsClass' => '',
         'adapters' => array()
     );
 }

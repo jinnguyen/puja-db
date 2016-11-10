@@ -1,22 +1,23 @@
 <?php
 namespace Puja\Db;
 use Puja\Db\Driver\ConnectionConfigure;
+use Puja\Db\Configure;
 
 class Driver
 {
     protected $connection;
     protected static $checkDriver;
 
-    public function __construct($config)
+    public function __construct($config, $DriverClass, $DnsClass)
     {
 
         if (empty($config['driver'])) {
             $config['driver'] = 'Pdo';
         }
 
-        $connectCls = 'Puja\\Db\\Driver\\' . $config['driver'] . '\\Connection';
-        $resultCls = 'Puja\\Db\\Driver\\' . $config['driver'] . '\\Result';
-        $statementCls = 'Puja\\Db\\Driver\\' . $config['driver'] . '\\Statement';
+        $connectCls = $DriverClass . $config['driver'] . '\\Connection';
+        $resultCls = $DriverClass . $config['driver'] . '\\Result';
+        $statementCls = $DriverClass . $config['driver'] . '\\Statement';
         
         if (null === self::$checkDriver) {
             self::$checkDriver = true;
@@ -26,7 +27,7 @@ class Driver
         }
 
 
-        $this->connection = new $connectCls(new ConnectionConfigure($config));
+        $this->connection = new $connectCls(new ConnectionConfigure($config), $DnsClass);
     }
 
     /**
