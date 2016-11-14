@@ -1,4 +1,4 @@
-# puja-db
+# puja-db v1.1.0
 Puja\Db is an adapter that allow your application access to a databases
 
 Install:
@@ -19,14 +19,14 @@ $configures = array(
     Default value: \Puja\Db\Driver\
     Currently we have 2 default Drivers: Mysqli, Pdo ( recommend to use Pdo)
     */
-    '<strong>DriverClass</strong>' => '\\Puja\\Db\\Driver\\', // Optional
+    '<strong>DriverDir</strong>' => '\\Puja\\Db\\Driver\\', // Optional
 
     /**
         Namespace to Pdo Dns folder, you can change it to your app, if you want create new Dns for Pdo
         Default value: \Puja\Db\Driver\Pdo\Dns\
         Currently we have 3 default PDO Dns: mysql, sqlite, pgsql
     */
-    '<strong>DnsClass</strong>' => '\\Puja\\Db\\Driver\\Pdo\\Dns\\', // Optional
+    '<strong>DnsDir</strong>' => '\\Puja\\Db\\Driver\\Pdo\\Dns\\', // Optional
 
     /**
         Required

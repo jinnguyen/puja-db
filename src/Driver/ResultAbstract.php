@@ -1,5 +1,10 @@
 <?php
 namespace Puja\Db\Driver;
+
+/**
+ * Class ResultAbstract
+ * @package Puja\Db\Driver
+ */
 abstract class ResultAbstract
 {
     protected $result;

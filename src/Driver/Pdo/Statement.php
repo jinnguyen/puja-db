@@ -5,6 +5,10 @@ use Puja\Db\Driver\StatementAbstract;
 use Puja\Db\Exception;
 use Puja\Db\Configure;
 
+/**
+ * Class Statement
+ * @package Puja\Db\Driver\Pdo
+ */
 class Statement extends StatementAbstract
 {
     /**

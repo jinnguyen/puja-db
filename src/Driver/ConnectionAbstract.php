@@ -1,6 +1,11 @@
 <?php
 namespace Puja\Db\Driver;
 use Puja\Db\Configure;
+
+/**
+ * Class ConnectionAbstract
+ * @package Puja\Db\Driver
+ */
 abstract class ConnectionAbstract
 {
     protected $connect;

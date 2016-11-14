@@ -14,9 +14,9 @@
   "require": {
       "jinnguyen/puja-sqlbuilder": "^1"
   },
-  "autoload-dev": {
-  "psr-4": {
-      "Puja\\Db\\": "src/"
+  "autoload": {
+      "psr-4": {
+          "Puja\\Db\\": "src/"
+      }
   }
-}
 }

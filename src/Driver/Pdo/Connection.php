@@ -4,6 +4,10 @@ use Puja\Db\Driver;
 use Puja\Db\Exception;
 use Puja\Db\Configure;
 
+/**
+ * Class Connection
+ * @package Puja\Db\Driver\Pdo
+ */
 class Connection extends Driver\ConnectionAbstract
 {
     public function __construct(Driver\ConnectionConfigure $configure, $DnsClass = Configure::DNS_DEFAULT)

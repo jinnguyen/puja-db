@@ -2,6 +2,10 @@
 namespace Puja\Db\Driver\Pdo\Dns;
 use Puja\Db\Driver;
 
+/**
+ * Class DnsAbstract
+ * @package Puja\Db\Driver\Pdo\Dns
+ */
 abstract class DnsAbstract
 {
     protected $dns;

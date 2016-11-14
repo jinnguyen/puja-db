@@ -2,6 +2,11 @@
 namespace Puja\Db\Driver;
 use Puja\Db\Configure;
 use Puja\Db\Exception;
+
+/**
+ * Class ConnectionConfigure
+ * @package Puja\Db\Driver
+ */
 class ConnectionConfigure
 {
     protected $cfg = array(

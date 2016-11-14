@@ -1,8 +1,11 @@
 <?php
-namespace Puja\Db;
-use Puja\Db\Driver\ConnectionConfigure;
+namespace Puja\Db\Driver;
 use Puja\Db\Configure;
 
+/**
+ * Class Driver
+ * @package Puja\Db\Driver
+ */
 class Driver
 {
     protected $connection;
@@ -12,7 +15,7 @@ class Driver
     {
 
         if (empty($config['driver'])) {
-            $config['driver'] = 'Pdo';
+            $config['driver'] = Configure::DRIVER_DEFAULT;
         }
 
         $connectCls = $DriverClass . $config['driver'] . '\\Connection';

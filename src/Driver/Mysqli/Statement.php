@@ -1,16 +1,19 @@
 <?php
 namespace Puja\Db\Driver\Mysqli;
-
 use Puja\Db\Driver\StatementAbstract;
 use Puja\Db\Exception;
 use Puja\Db\Configure;
 
+/**
+ * Class Statement
+ * @package Puja\Db\Driver\Mysqli
+ */
 class Statement extends StatementAbstract
 {
     /** @var  \Puja\Db\Driver\Mysqli\Result*/
     protected $result;
     /** @var  \mysqli */
-    protected $connecttion;
+    protected $connection;
     protected $bindValues = array();
 
     protected $paramMapping = array(
@@ -21,7 +24,7 @@ class Statement extends StatementAbstract
 
     public function setConnection($connection)
     {
-        $this->connecttion = $connection;
+        $this->connection = $connection;
     }
 
 
@@ -29,6 +32,7 @@ class Statement extends StatementAbstract
     {
         
     }
+    
     public function bindValue($parameter, $value, $dataType = Configure::PARAM_STR)
     {
         $this->bindValues[$parameter . '[MYSQLI_PARAM_SEPERATE]' . $dataType] = $value;
@@ -161,7 +165,7 @@ class Statement extends StatementAbstract
             $sql = str_replace(array_keys($replacementArrays), $replacementArrays, $this->sql);
         }
 
-        $this->statement = $this->connecttion->prepare($sql);
+        $this->statement = $this->connection->prepare($sql);
 
         if ($args) {
             ksort($args);

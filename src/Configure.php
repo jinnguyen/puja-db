@@ -1,13 +1,17 @@
 <?php
 namespace Puja\Db;
 
+/**
+ * Class Configure
+ * @package Puja\Db
+ */
 class Configure
 {
     const DRIVER_DEFAULT = 'Pdo';
     const DNS_DEFAULT = 'mysql';
     
-    const DRIVER_CLASS = '\\Puja\\Db\\Driver\\';
-    const DNS_CLASS = '\\Puja\\Db\\Driver\\Pdo\\Dns\\';
+    const DRIVER_DIR = '\\Puja\\Db\\Driver\\';
+    const DNS_DIR = '\\Puja\\Db\\Driver\\Pdo\\Dns\\';
 
     const FETCH_ASSOC = 2;
 
@@ -64,8 +68,54 @@ class Configure
 
     protected $configures = array(
         'write_adapter_name' => null,
-    	'DriverClass' => '',
-    	'DnsClass' => '',
+    	'DriverDir' => '',
+    	'DnsDir' => '',
         'adapters' => array()
     );
+
+    public function __construct($configures = array())
+    {
+        if (empty($configures['adapters'])) {
+            throw new Exception('The configures array must have key *adapters* => [...]');
+        }
+
+        if (empty($configures['write_adapter_name'])) {
+            $configures['write_adapter_name'] = current(array_keys($configures['adapters']));
+        }
+
+
+        if (!array_key_exists($configures['write_adapter_name'], $configures['adapters'])) {
+            throw new Exception(sprintf('*%s* doesnt exist in $configures[adapters]', $configures['write_adapter_name']));
+        }
+
+        if (empty($configures['DriverDir'])) {
+            $configures['DriverDir'] = self::DRIVER_DIR;
+        }
+
+        if (empty($configures['DnsDir'])) {
+            $configures['DnsDir'] = self::DNS_DIR;
+        }
+
+        $this->configures = array_merge($this->configures, $configures);
+    }
+
+    public function getWriteAdapterName()
+    {
+        return $this->configures['write_adapter_name'];
+    }
+
+    public function getDriverDir()
+    {
+        return $this->configures['DriverDir'];
+    }
+
+    public function getDnsDir()
+    {
+        return $this->configures['DnsDir'];
+    }
+
+    public function getAdapters()
+    {
+        return $this->configures['adapters'];
+    }
 }

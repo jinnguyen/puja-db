@@ -4,20 +4,26 @@ namespace Puja\Db;
 use Puja\Db\Adapter;
 use Puja\Db\Select;
 
+/**
+ * Class Table
+ * @package Puja\Db
+ */
 class Table
 {
     protected $tableName;
 
     public function __construct($tblName = null)
     {
-        $this->tableName = $tblName;
+        if (!empty($tblName)) {
+            $this->tableName = $tblName;
+        }
     }
 
     public function getTableName()
     {
         return $this->tableName;
     }
-
+    
     public static function getAdapter($name = null)
     {
         return Adapter::getInstance($name);
@@ -25,7 +31,7 @@ class Table
 
     public static function getWriteAdapter()
     {
-        return Adapter::getWriteAdapter();
+        return Adapter::getWriteInstance();
     }
 
     public function findOneByCriteria($criteria)
@@ -44,12 +50,12 @@ class Table
         return $result->fetchAll();
     }
 
-    public function updateByCriteria($updateFields, $criteria)
+    public function updateByCriteria(array $updateFields, $criteria)
     {
         return self::getWriteAdapter()->update($this->tableName, $updateFields, $criteria);
     }
 
-    public function insert($insertFields, $ignore = false)
+    public function insert(array $insertFields, $ignore = false)
     {
         return self::getWriteAdapter()->insert($this->tableName, $insertFields, $ignore);
     }
@@ -61,7 +67,12 @@ class Table
 
     public function truncate()
     {
-        return self::getWriteAdapter()->execute('TRUNCATE TABLE ' . $this->tableName);
+        return self::getWriteAdapter()->truncate($this->tableName);
+    }
+
+    public function replace(array $replaceFields)
+    {
+        return self::getWriteAdapter()->replace($this->tableName, $replaceFields);
     }
 
 }

@@ -4,13 +4,19 @@ use Puja\Db\Select;
 use Puja\Db\Driver;
 use Puja\SqlBuilder\Builder;
 
+/**
+ * Class Adapter
+ * @package Puja\Db
+ */
 class Adapter
 {
+    /**
+     * @var \Puja\Db\Configure
+     */
     protected static $configures;
     protected static $instances;
-    protected static $writeAdapterName;
     /**
-     * @var \Puja\Db\Driver
+     * @var \Puja\Db\Driver\Driver
      */
     protected $driver;
 
@@ -28,55 +34,40 @@ class Adapter
             throw new Exception('The configures are already loaded, no need to reload again');
         }
 
-        if (!array_key_exists('write_adapter_name', $configures) || empty($configures['adapters'])) {
-            throw new Exception('The configures must be array(write_adapter_name => <string>,adapters => [...])');
-        }
-
-        if (!array_key_exists($configures['write_adapter_name'], $configures['adapters'])) {
-            throw new Exception(sprintf('*%s* doesnt exist in $configures[adapters]', $configures['write_adapter_name']));
-        }
-        
-		if (!empty($configures['write_adapter_name'])) {
-			self::$writeAdapterName = $configures['write_adapter_name'];
-		}
-		
-        if (empty($configures['DriverClass'])) {
-        	$configures['DriverClass'] = Configure::DRIVER_CLASS;
-        }
-        
-        if (empty($configures['DnsClass'])) {
-        	$configures['DnsClass'] = Configure::DNS_CLASS;
-        }
-        
-        self::$configures = $configures;
+        self::$configures = new Configure($configures);
     }
 
     public static function getInstance($adapterName = null)
     {
         if (empty(self::$configures)) {
-            return new self();
+            throw new Exception('Adapter are not configured yet, pls call *new Adapter($configures)*');
         }
 
+        $adapters = self::$configures->getAdapters();
         if (empty($adapterName)) {
-            $adapterName = current(array_keys(self::$configures['adapters']));
+            $adapterName = current(array_keys($adapters));
         }
 
         if (!empty(self::$instances[$adapterName])) {
             return self::$instances[$adapterName];
         }
 
-        if (!array_key_exists($adapterName, self::$configures['adapters'])) {
-            throw new Exception($adapterName . ' dosent exist in configured adapters');
+        if (!array_key_exists($adapterName, $adapters)) {
+            throw new Exception($adapterName . ' doesnt exist in configured adapters');
         }
 
         self::$instances[$adapterName] = new self();
-        self::$instances[$adapterName]->driver = new Driver(self::$configures['adapters'][$adapterName], self::$configures['DriverClass'], self::$configures['DnsClass']);
+        self::$instances[$adapterName]->driver = new Driver\Driver(
+            $adapters[$adapterName],
+            self::$configures->getDriverDir(),
+            self::$configures->getDnsDir()
+        );
         return self::$instances[$adapterName];
     }
 
-    public static function getWriteAdapter()
+    public static function getWriteInstance()
     {
-        return self::getInstance(self::$writeAdapterName);
+        return self::getInstance(self::$configures->getWriteAdapterName());
     }
 
     /**
@@ -89,6 +80,7 @@ class Adapter
             $query = $query->getQuery();
         }
         return $this->driver->getConnection()->execute($query);
+
     }
 
     /**
@@ -116,7 +108,7 @@ class Adapter
     }
 
     /**
-     * @return \Puja\Db\Driver
+     * @return \Puja\Db\Driver\Driver
      */
     public function getDriver()
     {
@@ -173,6 +165,21 @@ class Adapter
     {
         $select = new Builder();
         $query = $select->reset()->delete($table)->where($cond);
+        return $this->driver->getConnection()->execute($query->getQuery());
+    }
+
+
+    public function replace($table, array $replaceFields)
+    {
+        $select = new Builder();
+        $query = $select->reset()->replace($table, $replaceFields);
+        return $this->driver->getConnection()->execute($query->getQuery());
+    }
+
+    public function truncate($table)
+    {
+        $select = new Builder();
+        $query = $select->reset()->truncate($table);
         return $this->driver->getConnection()->execute($query->getQuery());
     }
 }

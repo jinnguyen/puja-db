@@ -1,3 +1,9 @@
 <?php
 namespace Puja\Db;
-class Exception extends \Exception{}
+/**
+ * Class Exception
+ * @package Puja\Db
+ */
+class Exception extends \Exception{
+    protected $code = 'Puja\\DB\\Exception';
+}

@@ -4,6 +4,10 @@ use Puja\Db\Driver\ResultAbstract;
 use Puja\Db\Exception;
 use Puja\Db\Configure;
 
+/**
+ * Class Result
+ * @package Puja\Db\Driver\Pdo
+ */
 class Result extends ResultAbstract
 {
     /**

@@ -1,10 +1,13 @@
 <?php
 namespace Puja\Db\Driver;
 use Puja\Db\Configure;
+
+/**
+ * Class StatementAbstract
+ * @package Puja\Db\Driver
+ */
 abstract class StatementAbstract
 {
-
-
 	protected $statement;
 	protected $fetchMode;
 	protected $sql;

@@ -1,0 +1,9 @@
+v1.1.0
+- Add throw exception if user getAdapter without configures
+- Add function truncate(),replace() to Table, Adapter
+- Update composer file: remove autoload-dev
+- Allow user extends Table (init table name without __construct()
+- Move Driver.php to Driver/ folder
+- Update configure key: DriverClass -> DriverDir, DnsClass -> DnsDir
+- Refactor code in Puja\Db\Adapter & Puja\Db\Configure
+- Add file Changes
