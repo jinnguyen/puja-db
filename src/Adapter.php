@@ -138,7 +138,8 @@ class Adapter
             $query = $select->reset()->insert($table, $insertFields);
         }
 
-        return $this->driver->getConnection()->execute($query->getQuery());
+        $this->driver->getConnection()->execute($query->getQuery());
+        return $this->driver->getConnection()->lastInsertId();
 
     }
 

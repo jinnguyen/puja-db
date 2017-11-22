@@ -29,8 +29,11 @@ class Driver
             }
         }
 
-
-        $this->connection = new $connectCls(new ConnectionConfigure($config), $DnsClass);
+        try {
+            $this->connection = new $connectCls(new ConnectionConfigure($config), $DnsClass);
+        } catch (\Exception $e) {
+            throw new Exception('[' . $config['driver'] . '] ' . $e->getMessage(), $e->getCode());
+        }
     }
 
     /**
