@@ -183,4 +183,19 @@ class Adapter
         $query = $select->reset()->truncate($table);
         return $this->driver->getConnection()->execute($query->getQuery());
     }
+
+    public function beginTransaction()
+    {
+        return $this->driver->getConnection()->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->driver->getConnection()->commit();
+    }
+
+    public function rollBack()
+    {
+        return $this->driver->getConnection()->rollback();
+    }
 }
