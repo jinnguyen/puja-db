@@ -2,7 +2,7 @@
   "name": "jinnguyen/puja-db",
   "description": "Puja-Db is an adapter that allow your application access to a databases",
   "type": "library",
-  "license": "Apache License 2.0",
+  "license": "MIT License",
   "keywords": ["Puja", "Db"],
   "authors": [
       {
